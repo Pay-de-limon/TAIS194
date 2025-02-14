@@ -72,4 +72,12 @@ def guardar(usuario: dict):
             raise HTTPException(status_code=400, detail="La tarea ya existe")  # Sirve para marcar error
     Tareas.append(tareas)
     return Tareas
+#Endpoint para actualizar
+@app.put("/usuarios/{id}", tags=['Operaciones CRUD'])
+def actualizar(id:int, TareaActualizada:dict):
+    for index,trs in enumerate(Tareas):
+        if trs["id"]==id:
+            Tareas[index].update(TareaActualizada)
+            return Tareas[index]
+    raise HTTPException(status_code=400, detail="La tarea no existe")
 
