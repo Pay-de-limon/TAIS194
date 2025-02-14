@@ -64,3 +64,12 @@ Tareas =[
 def leer():
     return {'Tareas Registradas': Tareas}
 
+#Ruta o EndPoint POST
+@app.post('/Tareas/', tags=["Operaciones CRUD"])
+def guardar(usuario: dict):
+    for trs in Tareas:
+        if trs["id"] == tareas["id"]:
+            raise HTTPException(status_code=400, detail="La tarea ya existe")  # Sirve para marcar error
+    Tareas.append(tareas)
+    return Tareas
+
