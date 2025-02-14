@@ -1,0 +1,66 @@
+from fastapi import FastAPI,HTTPException
+from typing import Optional
+app = FastAPI(
+
+    title ="PRACTICA NO.4",
+    description= "Repaso",
+    version = "1.0.1"
+    
+)
+
+Tareas =[
+    
+    {
+    "id": 1,
+    "titulo": "Diseñar interfaz de usuario",
+    "descripcion": "Crear el prototipo de una interfaz para la aplicación.",
+    "vencimiento": "20-02-24",
+    "estado": "completada",
+    "materia": "Diseño de Interfaces"
+},
+    {
+    "id": 2,
+    "titulo": "Configurar máquina virtual",
+    "descripcion": "Instalar y configurar una máquina virtual en VirtualBox",
+    "vencimiento": "22-02-24",
+    "estado": "pendiente",
+    "materia": "Tecnologías de Virtualización"
+},
+    {
+    "id": 3,
+    "titulo": "Revisión de código",
+    "descripcion": "Revisar y mejorar el código del proyecto de software",
+    "vencimiento": "19-02-24",
+    "estado": "completada",
+    "materia": "Gestión de Software"
+},
+    {
+    "id": 4,
+    "titulo": "Plan de proyecto",
+    "descripcion": "Desarrollar el plan de proyecto para la asignatura de Administración de Proyectos",
+    "vencimiento": "25-02-24",
+    "estado": "pendiente",
+    "materia": "Administración de Proyectos"
+},
+    {
+    "id": 5,
+    "titulo": "Practicar conversación",
+    "descripcion": "Realizar una práctica de conversación en inglés con un compañero de clase",
+    "vencimiento": "18-02-24",
+    "estado": "pendiente",
+    "materia": "Inglés"
+},
+    {
+    "id": 6,
+    "titulo": "Examen parcial",
+    "descripcion": "Estudiar para el examen parcial de Tecnologías de Virtualización",
+    "vencimiento": "24-02-24",
+    "estado": "pendiente",
+    "materia": "Tecnologías de Virtualización"
+}
+]
+#EndPoint consulta tarea
+@app.get("/todasTareas", tags= ["Operaciones CRUD"])
+def leer():
+    return {'Tareas Registradas': Tareas}
+
