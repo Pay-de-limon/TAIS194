@@ -90,5 +90,11 @@ def eliminar(id: int):
             return {"message": "Tarea Eliminada"}
     raise HTTPException(status_code=400, detail="La tarea no existe")
 
+@app.get('/Tareas/{id}', tags=["Operaciones CRUD"])
+def buscar_por_id(id: int):
+    for trs in Tareas:
+        if trs["id"] == id:
+            return trs
+    raise HTTPException(status_code=404, detail="No se encontro tareas")
 
 
