@@ -66,12 +66,12 @@ def leer():
 
 #Ruta o EndPoint POST
 @app.post('/Tareas/', tags=["Operaciones CRUD"])
-def guardar(usuario: dict):
+def guardar(tarea: dict):
     for trs in Tareas:
-        if trs["id"] == tareas["id"]:
-            raise HTTPException(status_code=400, detail="La tarea ya existe")  # Sirve para marcar error
-    Tareas.append(tareas)
-    return Tareas
+        if trs["id"] == tarea["id"]:
+            raise HTTPException(status_code=400, detail="La tarea ya existe")  
+    Tareas.append(tarea)
+    return tarea
 #Endpoint para actualizar
 @app.put("/usuarios/{id}", tags=['Operaciones CRUD'])
 def actualizar(id:int, TareaActualizada:dict):
