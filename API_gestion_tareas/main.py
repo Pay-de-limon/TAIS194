@@ -1,5 +1,6 @@
 from fastapi import FastAPI,HTTPException
 from typing import Optional
+
 app = FastAPI(
 
     title ="PRACTICA NO.4",
