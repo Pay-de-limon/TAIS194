@@ -6,3 +6,7 @@ class modelUsuario(BaseModel):
     edad:int= Field(...,gt=0,le=120, description="Edad siempre tiene que ser mayor a cero")
     correo:str= Field(...,description="Ingrese un Email valido", pattern=r'^[\w\.-]+@[\w\.-]+\.[a-zA-Z]{2,6}$')
     
+class modelUsuario(BaseModel):
+    mail:EmailStr = Field(...,description="Correo válido")
+    passw:str = Field(...,min_length=8, strip_whitespace= True ,description=" solo letras sin espacios min 8")
+    
