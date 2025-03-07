@@ -1,8 +1,10 @@
-from fastapi import FastAPI,HTTPException
+from fastapi import FastAPI,HTTPException, Depends
 from typing import Optional, List
 from pydantic import BaseModel 
 from models import modelUsuario, modelAuth
 from genToken import createToken
+from middleware import BearerJWT
+
 app = FastAPI(
 
     title ="Mi primer API",
@@ -37,12 +39,12 @@ def modelAuth(credenciales:modelAuth):
 
 
 #EndPoint consulta usuarios
-@app.get("/todosUsuarios",response_model= List[modelUsuario], tags= ["Operaciones CRUD"])
+@app.get("/todosUsuarios",dependencies=[Depends(BearerJWT())],response_model= List[modelUsuario], tags= ["Operaciones CRUD"])
 def leer():
     return usuarios
 
 #EndPoint POST
-@app.post('/usuarios/', response_model=modelUsuario, tags = ["Operaciones CRUD"])
+@app.post('/usuarios/',response_model=modelUsuario, tags = ["Operaciones CRUD"])
 def guardar(usuario:modelUsuario):
     for usr in usuarios:
         if usr["id"] == usuario.id:
@@ -67,4 +69,5 @@ def eliminar(id: int):
             del usuarios[index]  
             return {"message": "Usuario eliminado"}
     raise HTTPException(status_code=400, detail="El usuario no existe")
+
 
