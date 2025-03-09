@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from models import modelUsuario, modelAuth
 from genToken import createToken
 from middleware import BearerJWT
+from fastapi.responses import JSONResponse
 
 app = FastAPI(
 
@@ -30,12 +31,13 @@ def home():
 #Enpoint para generar Token
 @app.post("/auth",tags=['Autentificacion'])
 def modelAuth(credenciales:modelAuth):
-    if credenciales.correo =="perla@gmail.com" and credenciales.passwd == "123456789":
-        token:str= createToken(credenciales.model_dump())
+    if credenciales.correo =="perla@gmail.com" and credenciales.passwd == "12345678":
+        token: str = createToken(credenciales.model_dump())
         print(token)
-        return {"Aviso:":"Token Generado"}
-    else: 
-        return {"Aviso:":"Usuario no cuenta con permiso"}
+        return JSONResponse (content= token)
+    
+    else:   
+        return {"Aviso:":"Usuario no Autorizado"}
 
 
 #EndPoint consulta usuarios

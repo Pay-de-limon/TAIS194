@@ -7,5 +7,5 @@ class modelUsuario(BaseModel):
     correo : EmailStr = Field(..., description="Formato de correo incorrecto, ejemplo: user@example.com")
     
 class modelAuth(BaseModel):
-    correo : EmailStr = Field(..., description="Formato de correo incorrecto, ejemplo: user@example.com")
+    correo : EmailStr
     passwd : str = Field(..., min_length=8, strip_whitespace=True, description="La contraseña es de al menos 8 caracteres")
