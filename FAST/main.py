@@ -1,7 +1,7 @@
 from fastapi import FastAPI,HTTPException, Depends
 from typing import Optional, List
 from pydantic import BaseModel 
-from models import modelUsuario, modelAuth
+from FAST.modelsPydantic import modelUsuario, modelAuth
 from genToken import createToken
 from middleware import BearerJWT
 from fastapi.responses import JSONResponse
