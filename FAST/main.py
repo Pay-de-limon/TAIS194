@@ -1,5 +1,6 @@
 from fastapi import FastAPI,HTTPException, Depends
 from typing import Optional, List
+from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel 
 from modelsPydantic import modelUsuario, modelAuth
 from genToken import createToken
@@ -45,9 +46,20 @@ def modelAuth(credenciales:modelAuth):
 
 
 #EndPoint consulta usuarios
-@app.get("/todosUsuarios",dependencies=[Depends(BearerJWT())],response_model= List[modelUsuario], tags= ["Operaciones CRUD"])
+@app.get("/todosUsuarios", tags= ["Operaciones CRUD"])
 def leer():
-    return usuarios
+    db=Session()
+    try:
+        consulta = db.query(User).all()
+        return JSONResponse(content = jsonable_encoder(consulta))
+    except Exception as e:
+        db.rollback()
+        return JSONResponse(status_code=500, content={"message":"Error al guardar","Error": str(e) })
+        
+    finally:
+        db.close()
+        
+        
 
 #EndPoint POST ACTUALIZADO
 @app.post('/usuarios/',response_model=modelUsuario, tags = ["Operaciones CRUD"])
@@ -85,3 +97,20 @@ def eliminar(id: int):
     raise HTTPException(status_code=400, detail="El usuario no existe")
 
 
+#Epoint para buscar por ID
+@app.get('/usuario/{id}',tags=['Operaciones CRUD'])
+def leeruno(id:int):
+    db = Session()
+    try:
+        consulta1 = db.query(User).filter(User.id == id).first()
+        if not consulta1:
+            return JSONResponse(status_code=404, content={"Mensaje":"Usuario no encontrado"})
+        
+        return JSONResponse(content= jsonable_encoder(consulta1))
+    
+    except Exception as e:
+        db.rollback()
+        return JSONResponse(status_code=500, content={"message": "No fue posible consultar", "Error": str(e)})
+    
+    finally:
+        db.close()
