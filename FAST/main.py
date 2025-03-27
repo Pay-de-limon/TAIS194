@@ -91,16 +91,16 @@ def actualizar(id: int, usuarioActualizado: modelUsuario):
 def eliminar(id: int):
     db = Session()
     try:
-        # Buscar el usuario en la base de datos por ID
+    
         usuario_db = db.query(User).filter(User.id == id).first()
         
-        # Verificar si el usuario no existe
+        
         if not usuario_db:
             raise HTTPException(status_code=404, detail="Usuario no encontrado")
         
-        # Eliminar el usuario
+    
         db.delete(usuario_db)
-        db.commit()  # Confirmar la eliminación
+        db.commit() 
         
         return {"message": "Usuario eliminado"}
     
