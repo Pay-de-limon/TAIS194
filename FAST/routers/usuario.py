@@ -1,13 +1,8 @@
-from fastapi import FastAPI, HTTPException, Depends
-from typing import Optional, List
+from fastapi import FastAPI, HTTPException
 from fastapi.encoders import jsonable_encoder
-from pydantic import BaseModel 
-from modelsPydantic import modelUsuario, modelAuth
-from genToken import createToken
-from DB.conexion import Session, engine, Base
+from modelsPydantic import modelUsuario
+from DB.conexion import Session
 from models.modelsDB import User 
-
-from middleware import BearerJWT
 from fastapi.responses import JSONResponse
 from fastapi import APIRouter
 

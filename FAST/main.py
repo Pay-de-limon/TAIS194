@@ -1,7 +1,5 @@
-from fastapi import FastAPI
-from pydantic import BaseModel 
-from genToken import createToken
-from DB.conexion import Session, engine, Base
+from fastapi import FastAPI 
+from DB.conexion import  engine, Base
 from models.modelsDB import User 
 from routers.usuario  import routerUsuario
 from routers.auth import routerAuth
